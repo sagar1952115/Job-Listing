@@ -28,7 +28,7 @@ function App() {
     console.log(documentHeight);
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (windowHeight + scrollTop + 200 >= documentHeight) {
-      setIndex((prevIndex) => prevIndex + 1);
+      setOffset((prevOffset) => prevOffset + 1);
     }
   };
 
@@ -142,10 +142,10 @@ function App() {
         console.log("Error Fetching data ", error);
       } finally {
         let fetchedData = await response.json();
-        console.log(fetchedData);
-
         setData((prevData) => [...data, ...fetchedData.jdList]);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
     setLoading(true);
@@ -164,15 +164,17 @@ function App() {
         <FilterOptions filters={filters} setFilters={setFilters} />
       </div>
       <div className="job-container">
-        {filteredData.length > 0 && !loading ? (
+        {filteredData.length > 0 ? (
           filteredData.map((item, i) => {
             return <JobCard key={i} d={item} />;
           })
-        ) : (
+        ) : !loading ? (
           <NoData />
+        ) : (
+          ""
         )}
       </div>
-      {loading && <Loader />}
+      <div>{loading && <Loader />}</div>
     </>
   );
 }
