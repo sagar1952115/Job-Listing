@@ -164,7 +164,7 @@ function App() {
         <FilterOptions filters={filters} setFilters={setFilters} />
       </div>
       <div className="job-container">
-        {filteredData.length > 0 ? (
+        {filteredData.length > 0 && !loading ? (
           filteredData.map((item, i) => {
             return <JobCard key={i} d={item} />;
           })
