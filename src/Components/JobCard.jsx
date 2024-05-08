@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import user1 from "../assets/user1.jpeg";
 import user2 from "../assets/user2.jpeg";
+import { toTitleCase } from "../utils/utils";
 
 const JobCard = ({ d }) => {
   return (
@@ -41,18 +42,20 @@ const JobCard = ({ d }) => {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Avatar alt="Remy Sharp" src={d.logoUrl} sx={{ mr: 1 }} />
           <Box>
-            <Typography sx={{ color: "text.secondary", fontSize: 15 }}>
-              {d.companyName}
+            <Typography
+              sx={{ color: "text.secondary", fontWeight: "bold", fontSize: 20 }}
+            >
+              {toTitleCase(d.companyName)}
             </Typography>
             <Typography sx={{ fontSize: 20 }}>
-              {d.jobRole.toUpperCase()}
+              {toTitleCase(d.jobRole)}
             </Typography>
           </Box>
         </Box>
         <Typography sx={{ ml: 6, fontSize: 14, fontWeight: "650" }}>
-          {d.location.toUpperCase()}
+          {toTitleCase(d.location)}
         </Typography>
-        <Typography sx={{ mt: 2 }}>
+        <Typography sx={{ mt: 2, fontWeight: "bold", color: "text.secondary" }}>
           Estimated Salary: {d.salaryCurrencyCode} {d.minJdSalary} -
           {d.maxJdSalary} K ✅
         </Typography>
@@ -79,10 +82,11 @@ const JobCard = ({ d }) => {
             color: "text.secondary",
           }}
         >
-          Minimun Experience:
+          Minimum Experience:
           <Typography
             sx={{
-              color: "text.primary",
+              color: "text.secondary",
+              fontWeight: "bold",
             }}
           >
             {d.minExp || 0} years

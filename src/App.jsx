@@ -15,6 +15,7 @@ import {
 import "./App.css";
 import FilterOptions from "./Components/Filter";
 import { JobCard } from "./Components/JobCard";
+import Loader from "./Components/Loader";
 
 function App() {
   const [index, setIndex] = useState(1);
@@ -81,6 +82,7 @@ function App() {
         setLoading(false);
       }
     };
+    setLoading(true);
     fetchdata();
   }, [index]);
 
@@ -90,8 +92,6 @@ function App() {
 
   const applyFilters = () => {
     let filtered = [...data];
-
-    // Apply filters
     filtered = filterByRole(filtered, filters.role);
     filtered = filterByLocation(filtered, filters.location);
     filtered = filterByExperience(filtered, filters.experience);
@@ -122,26 +122,21 @@ function App() {
     const maxExperience = experience.max;
 
     return data.filter((item) => {
-      const itemMinExp = item.minExp || 0; // Assuming a default value of 0 if minExp is null
-      const itemMaxExp = item.maxExp || Infinity; // Assuming a default value of Infinity if maxExp is null
+      const itemMinExp = item.minExp || 0;
+      const itemMaxExp = item.maxExp || Infinity;
 
-      // Check if item's experience falls within the specified range
       return itemMinExp >= minExperience && itemMaxExp <= maxExperience;
     });
   };
 
   const filterBySalary = (data, salary) => {
-    if (!salary || !salary.min || !salary.max) return data; // If salary is not provided, return the original data
+    if (!salary || !salary.min || !salary.max) return data;
 
-    // Extract min and max salary values from the provided range object
     const { min: minSalary, max: maxSalary } = salary;
 
     return data.filter((item) => {
-      // Parse item salary to number and compare with min and max
       const minJDSalary = item.minJdSalary || 0;
       const maxJDSalary = item.maxJdSalary || Infinity;
-
-      // Handle null cases from backend by assuming a default range
 
       return minJDSalary >= minSalary && maxJDSalary <= maxSalary;
     });
@@ -160,10 +155,14 @@ function App() {
     <>
       <FilterOptions filters={filters} setFilters={setFilters} />
       <div className="job-container">
-        {filteredData.map((item, i) => {
-          return <JobCard key={i} d={item} />;
-        })}
+        {/* <Loader /> */}
+        {filteredData.length > 0 &&
+          filteredData.map((item, i) => {
+            return <JobCard key={i} d={item} />;
+          })}
       </div>
+      {loading && <Loader />}
+      {/* <Loader /> */}
     </>
   );
 }
