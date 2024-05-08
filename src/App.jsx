@@ -143,6 +143,9 @@ function App() {
       } finally {
         let fetchedData = await response.json();
         setData((prevData) => [...data, ...fetchedData.jdList]);
+
+        // Just to overcome flickering of NoData component
+
         setTimeout(() => {
           setLoading(false);
         }, 500);
