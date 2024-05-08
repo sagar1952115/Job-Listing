@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Avatar,
+  AvatarGroup,
+  Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   Typography,
+  darken,
 } from "@mui/material";
 import "./App.css";
 import FilterOptions from "./Components/Filter";
+import { JobCard } from "./Components/JobCard";
 
 function App() {
   const [index, setIndex] = useState(1);
@@ -152,8 +159,11 @@ function App() {
   return (
     <>
       <FilterOptions filters={filters} setFilters={setFilters} />
-
-      {JSON.stringify(filteredData)}
+      <div className="job-container">
+        {filteredData.map((item, i) => {
+          return <JobCard key={i} d={item} />;
+        })}
+      </div>
     </>
   );
 }
