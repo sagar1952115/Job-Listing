@@ -5,9 +5,13 @@
 .job-container {
   padding: 10px;
   display: flex;
-  /* height: 100vh; */
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+.filter {
+  max-width: 1600px;
+  margin: auto;
 }

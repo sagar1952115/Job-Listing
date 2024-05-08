@@ -153,16 +153,16 @@ function App() {
   console.log(filters);
   return (
     <>
-      <FilterOptions filters={filters} setFilters={setFilters} />
+      <div className="filter">
+        <FilterOptions filters={filters} setFilters={setFilters} />
+      </div>
       <div className="job-container">
-        {/* <Loader /> */}
         {filteredData.length > 0 &&
           filteredData.map((item, i) => {
             return <JobCard key={i} d={item} />;
           })}
       </div>
       {loading && <Loader />}
-      {/* <Loader /> */}
     </>
   );
 }

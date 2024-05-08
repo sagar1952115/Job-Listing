@@ -47,11 +47,7 @@ const FilterOptions = ({ filters, setFilters }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid
-        container
-        spacing={2}
-        style={{ maxWidth: "1600px", margin: "0 auto" }}
-      >
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={2}>
           <TextField
             label="Search Company Name"
